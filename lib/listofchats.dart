@@ -30,13 +30,16 @@ class ListOfChats extends StatelessWidget {
           )
         ],
       ),
-      body: ListView.builder(
+      body: ListView.separated(separatorBuilder: (context, index) => Divider(endIndent: 10,indent: 10),
         itemCount: data.items.length,
         itemBuilder: (context, index) {
           return ListTile(
-            leading: const CircleAvatar(radius: 23,),
+            leading: CircleAvatar(radius: 23,backgroundImage: AssetImage(data.items[index]["image"])),
             title: Text(
+      
               data.items[index]["name"],
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
             subtitle: Row(
               children: [
@@ -50,6 +53,8 @@ class ListOfChats extends StatelessWidget {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Details(
                     name: data.items[index]["name"],
+                    message: data.items[index]["message"],
+                    image: data.items[index]["image"],
                   ),
                 ));
               },
